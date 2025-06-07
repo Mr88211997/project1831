@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        <style>
+            body {font-family: sans-serif; background-color: aquamarine; color: #495057; margin: 20px;}
+        h1 { color: #007bff;}
+        .greeting{font-size: 1.2em;}
+        ul {list}
+        </style>
+    </title>
+        
+</head>
+</head>
+<body>
+    <h1>Welcome, {{ name }}!</h1> {# Using the 'name' variable #}
+
+    <p class="greeting">Happy {{ day }}!</p> {# Using the 'day' variable #}
+
+    <h2>Your Tasks for Today:</h2>
+    {% if tasks %} {# Using an if statement #}
+        <ul>
+            {% for task in tasks %} {# Using a for loop #}
+                <li>{{ task }}</li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No tasks for today. Enjoy your free time!</p>
+    {% endif %}
+
+    <p><small>This page is dynamically rendered by Flask and Jinja2.</small></p>
+</body>
+</html> 

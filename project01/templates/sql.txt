@@ -1,0 +1,3 @@
+create database db_name;
+use db_name;
+select * from table_name;

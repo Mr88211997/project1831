@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dynamic Home - Modern Interactive Site</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: #f0f4f8;
+    color: #222;
+    line-height: 1.6;
+  }
+
+  header {
+    background: #3b82f6;
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 10000;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  }
+
+  header .logo {
+    font-weight: 700;
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    cursor: pointer;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+  }
+
+  nav ul li {
+    margin-left: 2rem;
+  }
+
+  nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+    position: relative;
+  }
+
+  nav ul li a:hover,
+  nav ul li a.active {
+    color: #facc15;
+  }
+
+  nav ul li a.active::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: #facc15;
+    bottom: -5px;
+    left: 0;
+    border-radius: 2px;
+  }
+
+  .menu-toggle {
+    display: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+  }
+
+  main {
+    padding-top: 85px;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  section {
+    padding: 4rem 0;
+  }
+
+  .hero {
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    color: white;
+    border-radius: 15px;
+    padding: 4rem 2rem;
+    text-align: center;
+    box-shadow: 0 10px 20px rgb(37 99 235 / 0.3);
+  }
+
+  .hero h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    user-select: none;
+  }
+
+  .hero p {
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+    max-width: 700px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .btn {
+    background: #facc15;
+    color: #1f2937;
+    padding: 0.9rem 2.5rem;
+    font-size: 1.2rem;
+    border-radius: 35px;
+    border: none;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(250, 204, 21, 0.5);
+    transition: background-color 0.3s ease;
+  }
+
+  .btn:hover {
+    background: #eab308;
+  }
+
+  .features {
+    display: flex;
+    justify-content: space-between;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
+  .feature-card {
+    background: white;
+    flex: 1 1 300px;
+    border-radius: 15px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .feature-card:hover {
+    transform: translateY(-12px);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+  }
+
+  .feature-card h3 {
+    margin-top: 0;
+    color: #2563eb;
+  }
+
+  .dynamic-greeting {
+    font-weight: 600;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    color: #fde68a;
+    user-select: none;
+  }
+
+  footer {
+    background: #1e293b;
+    color: #9ca3af;
+    text-align: center;
+    padding: 1.5rem 1rem;
+    font-size: 0.9rem;
+    user-select: none;
+  }
+
+  @media (max-width: 900px) {
+    .features {
+      flex-direction: column;
+    }
+
+    nav ul {
+      display: none;
+      flex-direction: column;
+      background: #3b82f6;
+      position: fixed;
+      top: 60px;
+      right: 0;
+      width: 200px;
+      padding: 1rem 0;
+      border-radius: 0 0 0 15px;
+      box-shadow: -2px 2px 6px rgba(0,0,0,0.15);
+      height: calc(100vh - 60px);
+      overflow-y: auto;
+      z-index: 10001;
+    }
+
+    nav ul.show {
+      display: flex;
+    }
+
+    nav ul li {
+      margin-left: 0;
+      margin-bottom: 1rem;
+      text-align: center;
+    }
+
+    .menu-toggle {
+      display: block;
+      color: white;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="logo" tabindex="0" aria-label="Navigate to home page" role="button">BrandX</div>
+  <nav>
+    <div class="menu-toggle" id="menu-toggle" aria-label="Toggle menu" aria-expanded="false">&#9776;</div>
+    <ul id="nav-list" role="menubar">
+      <li role="none"><a href="#home" class="active" role="menuitem" tabindex="0">Home</a></li>
+      <li role="none"><a href="#features" role="menuitem" tabindex="-1">Features</a></li>
+      <li role="none"><a href="#about" role="menuitem" tabindex="-1">About</a></li>
+      <li role="none"><a href="#contact" role="menuitem" tabindex="-1">Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<main>
+  <section id="home" class="hero" role="region" aria-label="Welcome section">
+    <div class="dynamic-greeting" id="greeting">Hello!</div>
+    <h1>Welcome to BrandX</h1>
+    <p>Delivering modern digital solutions to empower your business and accelerate your growth.</p>
+    <button class="btn" id="cta-btn" aria-label="Start your journey now">Start Your Journey</button>
+  </section>
+
+  <section id="features" role="region" aria-label="Features section">
+    <h2 style="text-align:center; color:#2563eb; user-select:none;">Our Key Features</h2>
+    <div class="features" id="features-list">
+      <!-- Features dynamically injected by JS -->
+    </div>
+  </section>
+
+  <section id="about" role="region" aria-label="About Us">
+    <h2 style="text-align:center; color:#2563eb; user-select:none;">About Us</h2>
+    <p style="max-width: 700px; margin: 0 auto; font-size:1.1rem; color: #444;">
+      BrandX is passionate about crafting beautiful, fast, and user-friendly websites that bring value to your business. Our team embraces the latest technologies to provide scalable and elegant solutions.
+    </p>
+  </section>
+
+  <section id="contact" role="region" aria-label="Contact Information">
+    <h2 style="text-align:center; color:#2563eb; user-select:none;">Get in Touch</h2>
+    <p style="max-width: 700px; margin: 0 auto; font-size:1.1rem; color: #444;">
+      Questions? Ideas? Ready to get started? Reach out to our friendly team today. We are here to help you succeed.
+    </p>
+  </section>
+</main>
+
+<footer>
+  &copy; <span id="year"></span> BrandX. All rights reserved.
+</footer>
+
+<script>
+  // Dynamic greeting based on local time
+  function getGreeting() {
+    const now = new Date();
+    const hour = now.getHours();
+    if(hour < 12) return 'Good Morning!';
+    if(hour < 17) return 'Good Afternoon!';
+    return 'Good Evening!';
+  }
+  document.getElementById('greeting').textContent = getGreeting();
+
+  // Dynamic year in footer
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Features data - dynamically injected
+  const featuresData = [
+    {
+      title: "Fast & Responsive",
+      description: "Lightning-fast loading speeds and seamless responsiveness across all devices for a perfect user experience."
+    },
+    {
+      title: "Modern Designs",
+      description: "Fresh, sleek, and contemporary designs that keep your site looking professional and engaging."
+    },
+    {
+      title: "Customization",
+      description: "Flexible and easy to customize components to match your brand and business needs."
+    },
+    {
+      title: "24/7 Support",
+      description: "Dedicated support team ready to assist you at any time with any questions or issues."
+    }
+  ];
+
+  // Inject features dynamically in the features section
+  const featuresContainer = document.getElementById('features-list');
+  featuresData.forEach(feature => {
+    const card = document.createElement('article');
+    card.className = 'feature-card';
+    card.innerHTML = `
+      <h3>${feature.title}</h3>
+      <p>${feature.description}</p>
+    `;
+    featuresContainer.appendChild(card);
+  });
+
+  // Navigation menu logic
+  const menuToggle = document.getElementById('menu-toggle');
+  const navList = document.getElementById('nav-list');
+  const navLinks = navList.querySelectorAll('a');
+
+  menuToggle.addEventListener('click', () => {
+    const expanded = menuToggle.getAttribute('aria-expanded') === 'true';
+    menuToggle.setAttribute('aria-expanded', !expanded);
+    navList.classList.toggle('show');
+  });
+
+  // Close mobile menu when clicking a nav link and update active states
+  navLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      // Close menu if open
+      if(navList.classList.contains('show')) {
+        navList.classList.remove('show');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      }
+      // Update active link
+      navLinks.forEach(lnk => lnk.classList.remove('active'));
+      link.classList.add('active');
+    });
+  });
+
+  // Smooth scroll on nav click
+  navLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const targetID = link.getAttribute('href').substring(1);
+      const targetSection = document.getElementById(targetID);
+      if(targetSection) {
+        window.scrollTo({
+          top: targetSection.offsetTop - 70,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
+  // Update active menu item on scroll
+  window.addEventListener('scroll', () => {
+    let fromTop = window.scrollY + 80;
+    navLinks.forEach(link => {
+      let section = document.querySelector(link.getAttribute('href'));
+      if(section.offsetTop <= fromTop && (section.offsetTop + section.offsetHeight) > fromTop){
+        navLinks.forEach(lnk => lnk.classList.remove('active'));
+        link.classList.add('active');
+      }
+    });
+  });
+
+  // CTA button interaction
+  document.getElementById('cta-btn').addEventListener('click', () => {
+    alert('Thanks for your interest! We will reach out to you soon.');
+  });
+</script>
+</body>
+</html>
+

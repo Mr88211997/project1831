@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Dynamic IT Management Subinventory</title>
+<style>
+  /* Reset and base */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f4f8;
+    color: #1a1a1a;
+  }
+
+  /* Container */
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem 4rem;
+  }
+
+  /* Header */
+  header {
+    background: linear-gradient(90deg, #002f6c, #005ea2);
+    color: white;
+    padding: 2rem 0;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 0 0 15px 15px;
+  }
+  header h1 {
+    margin: 0;
+    font-size: 2.8rem;
+    letter-spacing: 2px;
+    font-weight: 700;
+  }
+  header p {
+    margin: 0.5rem 0 0;
+    font-size: 1.1rem;
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+
+  /* Nav placeholder */
+  nav {
+    margin: 2rem 0;
+    text-align: center;
+  }
+  nav a {
+    display: inline-block;
+    background: #005ea2;
+    color: white;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    margin: 0 1rem;
+    border-radius: 999px;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+  }
+  nav a:hover {
+    background: #002f6c;
+  }
+
+  /* Features */
+  .features {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .feature-card {
+    background: white;
+    flex: 1 1 280px;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+  }
+  .feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+  }
+  .feature-card h3 {
+    margin-top: 0;
+    font-size: 1.5rem;
+    color: #005ea2;
+  }
+  .feature-card p {
+    color: #444;
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  /* Footer */
+  footer {
+    text-align: center;
+    font-size: 0.9rem;
+    color: #666;
+    padding: 3rem 1rem 1rem;
+  }
+
+  /* Dynamic welcome message and clock */
+  #welcomeMsg {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: #0073e6;
+    margin-top: 1rem;
+    text-align: center;
+  }
+  #clock {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.25rem;
+    color: #005ea2;
+    margin-top: 0.25rem;
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    .features {
+      flex-direction: column;
+      align-items: center;
+    }
+    nav a {
+      margin: 0.5rem;
+    }
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>Dynamic IT Management Subinventory</h1>
+  <p>Streamline and Monitor Your IT Assets with Real-Time Precision</p>
+  <div id="welcomeMsg"></div>
+  <div id="clock"></div>
+</header>
+<div class="container">
+  <nav>
+    <a href="#inventory">Inventory Tracking</a>
+    <a href="#realtime">Real-Time Updates</a>
+    <a href="#reporting">Reporting & Analytics</a>
+  </nav>
+
+  <section class="features">
+    <article class="feature-card" id="inventory">
+      <h3>Inventory Tracking</h3>
+      <p>Keep a detailed record of all your IT subinventory items with easy categorization, status monitoring, and lifecycle management.</p>
+    </article>
+    <article class="feature-card" id="realtime">
+      <h3>Real-Time Updates</h3>
+      <p>Stay informed with instant updates on asset status changes, movements, and usage, enabling swift decision-making and resource allocation.</p>
+    </article>
+    <article class="feature-card" id="reporting">
+      <h3>Reporting &mdash; Analytics</h3>
+      <p>Generate comprehensive reports and analytics to optimize your IT inventory, identify bottlenecks, and forecast future needs confidently.</p>
+    </article>
+  </section>
+</div>
+
+<footer>
+  &copy; 2024 Dynamic IT Management Subinventory. All rights reserved.
+</footer>
+
+<script>
+  // Dynamic welcome message based on time of day
+  function updateWelcomeMessage() {
+    const now = new Date();
+    const hour = now.getHours();
+    let greeting = "Welcome";
+
+    if (hour >= 5 && hour < 12) {
+      greeting = "Good Morning";
+    } else if (hour >= 12 && hour < 17) {
+      greeting = "Good Afternoon";
+    } else if (hour >= 17 && hour <= 21) {
+      greeting = "Good Evening";
+    } else {
+      greeting = "Good Night";
+    }
+
+    document.getElementById('welcomeMsg').textContent = greeting + ", welcome to your Dynamic IT Management Subinventory!";
+  }
+
+  // Live clock display
+  function updateClock() {
+    const now = new Date();
+    const timeString = now.toLocaleTimeString();
+    document.getElementById('clock').textContent = timeString;
+  }
+
+  function initializePage() {
+    updateWelcomeMessage();
+    updateClock();
+    setInterval(updateClock, 1000);
+  }
+
+  window.onload = initializePage;
+</script>
+</body>
+</html>
+

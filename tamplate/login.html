@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Login - Secure Access</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap');
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body, html {
+    height: 100%;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #333;
+  }
+
+  .login-container {
+    background: white;
+    padding: 3rem 2.5rem;
+    border-radius: 15px;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 400px;
+  }
+
+  h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    color: #4f46e5;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  input[type="email"],
+  input[type="password"] {
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    transition: border-color 0.3s ease;
+  }
+
+  input[type="email"]:focus,
+  input[type="password"]:focus {
+    border-color: #4f46e5;
+    outline: none;
+  }
+
+  .error-message {
+    font-size: 0.9rem;
+    color: #dc2626;
+    margin-top: 0.25rem;
+    display: none;
+  }
+
+  button {
+    margin-top: 2.5rem;
+    background: #4f46e5;
+    color: white;
+    padding: 1rem;
+    font-size: 1.2rem;
+    border: none;
+    border-radius: 35px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 5px 18px rgba(79, 70, 229, 0.5);
+    transition: background 0.3s ease;
+  }
+
+  button:hover {
+    background: #4338ca;
+  }
+
+  .footer-text {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 0.9rem;
+    color: #666;
+  }
+
+  @media (max-width: 480px) {
+    .login-container {
+      padding: 2rem 1.5rem;
+      margin: 0 1rem;
+    }
+  }
+</style>
+</head>
+<body>
+  <main role="main" aria-labelledby="loginTitle" class="login-container">
+    <h2 id="loginTitle">Sign In</h2>
+    <form id="loginForm" novalidate>
+      <label for="email">Email Address</label>
+      <input type="email" id="email" name="email" autocomplete="username" required aria-describedby="emailError" />
+      <div id="emailError" class="error-message">Please enter a valid email address.</div>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" autocomplete="current-password" required minlength="6" aria-describedby="passwordError" />
+      <div id="passwordError" class="error-message">Password must be at least 6 characters long.</div>
+
+      <button type="submit" aria-label="Log in to your account">Log In</button>
+    </form>
+    <div class="footer-text">
+      Don't have an account? <a href="#" style="color:#4f46e5; text-decoration:none;">Sign up</a>
+    </div>
+  </main>
+
+<script>
+  const form = document.getElementById('loginForm');
+  const emailInput = form.email;
+  const passwordInput = form.password;
+  const emailError = document.getElementById('emailError');
+  const passwordError = document.getElementById('passwordError');
+
+  function validateEmail(email) {
+    // Simple email regex
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  }
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+
+    let valid = true;
+
+    if (!validateEmail(emailInput.value.trim())) {
+      emailError.style.display = 'block';
+      valid = false;
+      emailInput.setAttribute('aria-invalid', 'true');
+    } else {
+      emailError.style.display = 'none';
+      emailInput.removeAttribute('aria-invalid');
+    }
+
+    if (passwordInput.value.trim().length < 6) {
+      passwordError.style.display = 'block';
+      valid = false;
+      passwordInput.setAttribute('aria-invalid', 'true');
+    } else {
+      passwordError.style.display = 'none';
+      passwordInput.removeAttribute('aria-invalid');
+    }
+
+    if (valid) {
+      // For demo, just alert success
+      alert('Login successful! (Demo only)');
+      form.reset();
+    }
+  });
+</script>
+</body>
+</html>
